@@ -1,0 +1,218 @@
+{
+  "description": "Analyze API call result.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "description": "Status of the analyze operation.",
+      "enum": [
+        "success",
+        "partialSuccess",
+        "failure"
+      ],
+      "type": "string"
+    },
+    "pages": {
+      "description": "Page level information extracted in the analyzed\r\ndocument.",
+      "uniqueItems": false,
+      "type": "array",
+      "items": {
+        "description": "Extraction information of a single page in a\r\nwith a document.",
+        "type": "object",
+        "properties": {
+          "number": {
+            "format": "int32",
+            "description": "Page number.",
+            "type": "integer"
+          },
+          "height": {
+            "format": "int32",
+            "description": "Height of the page (in pixels).",
+            "type": "integer"
+          },
+          "width": {
+            "format": "int32",
+            "description": "Width of the page (in pixels).",
+            "type": "integer"
+          },
+          "clusterId": {
+            "format": "int32",
+            "description": "Cluster identifier.",
+            "type": "integer"
+          },
+          "keyValuePairs": {
+            "description": "List of Key-Value pairs extracted from the page.",
+            "uniqueItems": false,
+            "type": "array",
+            "items": {
+              "description": "Representation of a key-value pair as a list\r\nof key and value tokens.",
+              "type": "object",
+              "properties": {
+                "key": {
+                  "description": "List of tokens for the extracted key in a key-value pair.",
+                  "uniqueItems": false,
+                  "type": "array",
+                  "items": {
+                    "description": "Canonical representation of single extracted text.",
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "description": "String value of the extracted text.",
+                        "type": "string"
+                      },
+                      "boundingBox": {
+                        "description": "Bounding box of the extracted text. Represents the\r\nlocation of the extracted text as a pair of\r\ncartesian co-ordinates. The co-ordinate pairs are arranged by\r\ntop-left, top-right, bottom-right and bottom-left endpoints box\r\nwith origin reference from the bottom-left of the page.",
+                        "uniqueItems": false,
+                        "type": "array",
+                        "items": {
+                          "format": "double",
+                          "type": "number"
+                        }
+                      },
+                      "confidence": {
+                        "format": "double",
+                        "description": "A measure of accuracy of the extracted text.",
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "value": {
+                  "description": "List of tokens for the extracted value in a key-value pair.",
+                  "uniqueItems": false,
+                  "type": "array",
+                  "items": {
+                    "description": "Canonical representation of single extracted text.",
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "description": "String value of the extracted text.",
+                        "type": "string"
+                      },
+                      "boundingBox": {
+                        "description": "Bounding box of the extracted text. Represents the\r\nlocation of the extracted text as a pair of\r\ncartesian co-ordinates. The co-ordinate pairs are arranged by\r\ntop-left, top-right, bottom-right and bottom-left endpoints box\r\nwith origin reference from the bottom-left of the page.",
+                        "uniqueItems": false,
+                        "type": "array",
+                        "items": {
+                          "format": "double",
+                          "type": "number"
+                        }
+                      },
+                      "confidence": {
+                        "format": "double",
+                        "description": "A measure of accuracy of the extracted text.",
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tables": {
+            "description": "List of Tables and their information extracted from the page.",
+            "uniqueItems": false,
+            "type": "array",
+            "items": {
+              "description": "Extraction information about a table\r\ncontained in a page.",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "description": "Table identifier.",
+                  "type": "string"
+                },
+                "columns": {
+                  "description": "List of columns contained in the table.",
+                  "uniqueItems": false,
+                  "type": "array",
+                  "items": {
+                    "description": "Extraction information of a column in\r\na table.",
+                    "type": "object",
+                    "properties": {
+                      "header": {
+                        "description": "List of extracted tokens for the column header.",
+                        "uniqueItems": false,
+                        "type": "array",
+                        "items": {
+                          "description": "Canonical representation of single extracted text.",
+                          "type": "object",
+                          "properties": {
+                            "text": {
+                              "description": "String value of the extracted text.",
+                              "type": "string"
+                            },
+                            "boundingBox": {
+                              "description": "Bounding box of the extracted text. Represents the\r\nlocation of the extracted text as a pair of\r\ncartesian co-ordinates. The co-ordinate pairs are arranged by\r\ntop-left, top-right, bottom-right and bottom-left endpoints box\r\nwith origin reference from the bottom-left of the page.",
+                              "uniqueItems": false,
+                              "type": "array",
+                              "items": {
+                                "format": "double",
+                                "type": "number"
+                              }
+                            },
+                            "confidence": {
+                              "format": "double",
+                              "description": "A measure of accuracy of the extracted text.",
+                              "type": "number"
+                            }
+                          }
+                        }
+                      },
+                      "entries": {
+                        "description": "Extracted text for each cell of a column. Each cell\r\nin the column can have a list of one or more tokens.",
+                        "uniqueItems": false,
+                        "type": "array",
+                        "items": {
+                          "uniqueItems": false,
+                          "type": "array",
+                          "items": {
+                            "description": "Canonical representation of single extracted text.",
+                            "type": "object",
+                            "properties": {
+                              "text": {
+                                "description": "String value of the extracted text.",
+                                "type": "string"
+                              },
+                              "boundingBox": {
+                                "description": "Bounding box of the extracted text. Represents the\r\nlocation of the extracted text as a pair of\r\ncartesian co-ordinates. The co-ordinate pairs are arranged by\r\ntop-left, top-right, bottom-right and bottom-left endpoints box\r\nwith origin reference from the bottom-left of the page.",
+                                "uniqueItems": false,
+                                "type": "array",
+                                "items": {
+                                  "format": "double",
+                                  "type": "number"
+                                }
+                              },
+                              "confidence": {
+                                "format": "double",
+                                "description": "A measure of accuracy of the extracted text.",
+                                "type": "number"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "errors": {
+      "description": "List of errors reported during the analyze\r\noperation.",
+      "uniqueItems": false,
+      "type": "array",
+      "items": {
+        "description": "Error reported during an operation.",
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "description": "Message reported during the train operation.",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
